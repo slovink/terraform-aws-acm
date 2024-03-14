@@ -1,0 +1,85 @@
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name : Terraform Acm
+
+# License of this project
+license: "APACHE"
+
+# Canonical GitHub repo
+github_repo: git@github.com:slovink/terraform-aws-acm.git
+
+
+# Badges to display
+badges:
+  - name: "Terraform"
+    image: "https://img.shields.io/badge/Terraform-v1.7.0-green"
+    url: "https://www.terraform.io"
+  - name: "Licence"
+    image: "https://img.shields.io/badge/License-APACHE-blue.svg"
+    url: "https://github.com/slovink/terraform-aws-acm/blob/master/LICENSE"
+  - name: "tfsec"
+    image: "https://github.com/slovink/terraform-aws-acm/blob/master/.github/workflows/tfsec.yml"
+    url: "https://github.com/slovink/terraform-aws-acm/blob/master/.github/workflows/tfsec.yml"
+
+
+
+#  description of this project
+description: |-
+  This terraform module is designed to generate consistent label names and tags for resources. You can use terraform-subnet to implement a strict naming convention.
+
+
+# extra content
+include:
+  - "terraform.md"
+# How to use this project
+usage : |-
+
+  ### Simple Example:- generate-certificate-dns
+  Here is an example of how you can use this module in your inventory structure:
+  ```hcl
+
+    module "acm" {
+      source                    = "./../../"
+      name                      = "certificate"
+      environment               = "test"
+      domain_name               = "slovink.com"
+      subject_alternative_names = ["*.${local.domain}", "www.${local.domain}"]
+    }
+
+  ```
+
+  ### Simple Example:- generate-certificate-email
+  Here is an example of how you can use this module in your inventory structure:
+  ```hcl
+
+    module "acm" {
+      source                    = "./../../"
+      name                      = "certificate"
+      environment               = "test"
+      validate_certificate      = false
+      domain_name               = "slovink.com"
+      subject_alternative_names = ["www.slovink.com"]
+      validation_method         = "EMAIL"
+    }
+  ```
+
+
+  ### Simple Example:- import-certificate
+   Here is an example of how you can use this module in your inventory structure:
+   ```hcl
+      module "acm" {
+        source = "./../../"
+
+        name        = "certificate"
+        environment = "test"
+
+        #  import_certificate = false
+        #  private_key        = "./../../../slovink-private-key.pem"
+        #  certificate_body   = "./../../../slovink-cert.pem"
+        #  certificate_chain  = "./../../../slovink-chain.crt"
+      }
+   ```
